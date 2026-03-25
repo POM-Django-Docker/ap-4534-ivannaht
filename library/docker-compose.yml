@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:15-slim
+    image: postgres:15
 
     env_file: .env
     volumes:
