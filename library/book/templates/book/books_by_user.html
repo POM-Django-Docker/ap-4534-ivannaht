@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Books</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+    <link rel="stylesheet" href="{% static 'css/library_pages.css' %}">
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <div class="page-top">
+        <h2>Books Provided to User</h2>
+        <a class="secondary-btn" href="{% url 'authentication:users_list' %}">Back to users</a>
+    </div>
+
+    <div class="info-card">
+        <p><strong>User:</strong> {{ target_user.first_name }} {{ target_user.last_name }}</p>
+        <p><strong>Email:</strong> {{ target_user.email }}</p>
+        <p><strong>ID:</strong> {{ target_user.id }}</p>
+    </div>
+
+    <div class="details-grid">
+        <div class="related-card">
+            <h3 class="section-title">Books</h3>
+            {% if books %}
+                <table class="users-table" cellpadding="6" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Count</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for book in books %}
+                        <tr>
+                            <td>{{ book.id }}</td>
+                            <td>{{ book.name }}</td>
+                            <td>{{ book.description|default:"-" }}</td>
+                            <td>{{ book.count }}</td>
+                            <td>
+                                <a class="user-action-btn" href="{% url 'book:book_detail' book.id %}">View</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty-state">This user has no books in orders.</div>
+            {% endif %}
+        </div>
+
+        <div class="related-card">
+            <h3 class="section-title">Orders</h3>
+            {% if orders %}
+                <table class="users-table" cellpadding="6" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Book</th>
+                            <th>Created at</th>
+                            <th>Planned end at</th>
+                            <th>Returned at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.book.name }}</td>
+                            <td>{{ order.created_at }}</td>
+                            <td>{{ order.plated_end_at|default:"-" }}</td>
+                            <td>{% if order.end_at %}{{ order.end_at }}{% else %}-{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty-state">No orders found for this user.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+
+</body>
+</html>

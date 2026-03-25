@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library for IT specialists</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+
+{% include "partials/navbar.html" %}
+
+<header class="hero">
+    <div class="hero-content">
+        <h1>Find items in libraries near you</h1>
+    </div>
+</header>
+
+
+<section class="cards-container">
+
+    {% if user.is_authenticated %}
+    <div class="card">
+        <img src="{% static 'images/books.jpg' %}" alt="Books">
+        <h3>Books</h3>
+        <p>See the list of books</p>
+        <a class="learn-btn" href="{% url 'book:book_list' %}">Show</a>
+    </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <div class="card">
+        <img src="{% static 'images/orders.png' %}" alt="Orders">
+        <h3>Orders</h3>
+        <p>See orders</p>
+        <a class="learn-btn" href="{% url 'order:order_list' %}">Show</a>
+    </div>
+    {% endif %}
+
+    {% if user.is_authenticated and user.role == 1 %}
+    <div class="card">
+        <img src="{% static 'images/users.jpg' %}" alt="Users">
+        <h3>Users</h3>
+        <p>See the list of users</p>
+        <a class="learn-btn" href="{% url 'authentication:users_list' %}">Show</a>
+    </div>
+    {% endif %}
+
+    {% if user.is_authenticated and user.role == 1 %}
+    <div class="card">
+        <img src="{% static 'images/authors.jpg' %}" alt="Authors">
+        <h3>Authors</h3>
+        <p>See the list of authors</p>
+        <a class="learn-btn" href="{% url 'author:authors_list' %}">Show</a>
+    </div>
+    {% endif %}
+
+</section>
+
+{% include "partials/footer.html" %}
+
+</body>
+</html>

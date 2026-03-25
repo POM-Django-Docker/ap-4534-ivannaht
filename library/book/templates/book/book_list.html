@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+    <link rel="stylesheet" href="{% static 'css/library_pages.css' %}">
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <div class="page-top">
+        <h2>All Books</h2>
+        {% if user.is_authenticated and user.role == 1 %}
+            <a class="primary-btn" href="{% url 'book:create_book' %}">Add Book</a>
+        {% endif %}
+
+    </div>
+
+    <form method="get" class="filter-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="{{ title }}">
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="author" name="author" value="{{ author }}">
+            </div>
+
+            <div class="form-group">
+                <label for="sort">Sort by</label>
+                <select id="sort" name="sort">
+                    <option value="id" {% if sort == "id" %}selected{% endif %}>ID</option>
+                    <option value="name" {% if sort == "name" %}selected{% endif %}>Name</option>
+                    <option value="count" {% if sort == "count" %}selected{% endif %}>Count</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <button type="submit" class="primary-btn">Apply</button>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a class="secondary-btn" href="{% url 'book:book_list' %}">Reset</a>
+        </div>
+    </form>
+
+    {% if books %}
+    <table class="users-table" cellpadding="6" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Count</th>
+                <th>Authors</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.name }}</td>
+                <td>{{ book.description|default:"-" }}</td>
+                <td>{{ book.count }}</td>
+                <td>
+                    {% for author in book.authors.all %}
+                        {{ author.name }} {{ author.surname }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        -
+                    {% endfor %}
+                </td>
+                <td class="table-actions">
+                    <a class="user-action-btn" href="{% url 'book:book_detail' book.id %}">View</a>
+                    {% if user.is_authenticated and user.role == 1 %}
+                        <a class="secondary-btn" href="{% url 'book:edit_book' book.id %}">Edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="empty-state">No books found.</div>
+    {% endif %}
+</div>
+
+{% include "partials/footer.html" %}
+
+</body>
+</html>

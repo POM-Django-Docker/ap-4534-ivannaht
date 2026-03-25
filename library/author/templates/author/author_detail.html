@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Author details</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <h2>Author details</h2>
+    <div class="user-card">
+        <p><strong>ID:</strong> {{ author_obj.id }}</p>
+        <p><strong>Name:</strong> {{ author_obj.name }}</p>
+        <p><strong>Patronymic:</strong> {{ author_obj.patronymic }}</p>
+        <p><strong>Surname:</strong> {{ author_obj.surname }}</p>
+        {% if author_obj.created_at %}
+        <p><strong>Created at:</strong> {{ author_obj.created_at }}</p>
+        {% endif %}
+        {% if author_obj.updated_at %}
+        <p><strong>Updated at:</strong> {{ author_obj.updated_at }}</p>
+        {% endif %}
+    </div>
+
+
+    <section class="related-lists">
+
+        <div class="related-card">
+            <h3>Books list</h3>
+            {% if books %}
+                <table class="users-table" cellpadding="6" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for b in books %}
+                        <tr>
+                            <td>{{ b.id }}</td>
+                            <td>{{ b.name }}</td>
+                            <td>{{ b.count }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty-state">No books found for this author.</div>
+            {% endif %}
+        </div>
+    </section>
+
+
+    <div class="users-footer">
+        <a href="{% url 'author:authors_list' %}">Back to authors</a>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+
+</body>
+</html>

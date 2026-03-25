@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if is_edit %}Edit Order{% else %}Create Order{% endif %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+    <link rel="stylesheet" href="{% static 'css/library_pages.css' %}">
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <div class="page-top">
+        <h2>{% if is_edit %}Edit Order{% else %}Create Order{% endif %}</h2>
+        <a class="secondary-btn" href="{% url 'order:order_list' %}">Back to orders</a>
+    </div>
+
+    <form method="post" class="simple-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="form-actions">
+            <button type="submit" class="primary-btn">
+                {% if is_edit %}Save changes{% else %}Create order{% endif %}
+            </button>
+            <a class="secondary-btn" href="{% url 'order:order_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% include "partials/footer.html" %}
+
+</body>
+</html>

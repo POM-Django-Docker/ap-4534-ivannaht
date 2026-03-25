@@ -1,0 +1,22 @@
+<nav class="navbar">
+    <div class="nav-left">
+        <span class="logo-text">Library for IT specialists</span>
+    </div>
+
+    <div class="nav-right">
+
+        {% if request.resolver_match and request.resolver_match.url_name != 'home' %}
+        <a href="{% url 'home' %}">Back to home page</a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            {% if request.path == "/" %}
+                <a href="{% url 'authentication:profile' %}">My profile</a>
+            {% endif %}
+        <a href="{% url 'authentication:logout' %}">Log out</a>
+        {% else %}
+        <a href="{% url 'authentication:register' %}">Register</a>
+        <a href="{% url 'authentication:login' %}">Log in</a>
+        {% endif %}
+    </div>
+</nav>

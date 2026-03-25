@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/footer.css' %}">
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-stats">
+            <h2>About our library</h2>
+            <span>Books: {{ books_count|default:0 }}</span>
+            <span>Orders: {{ orders_count|default:0 }}</span>
+            <span>Visitors: {{ visitors_count|default:0 }}</span>
+            <span>Authors: {{ authors_count|default:0 }}</span>
+        </div>
+    </div>
+</footer>
+<style>
+</style>

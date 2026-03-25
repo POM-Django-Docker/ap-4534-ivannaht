@@ -1,0 +1,125 @@
+/* GENERAL PAGE STYLING */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+/* CENTERED FORM CARD */
+.register-container {
+    max-width: 420px;
+    margin: 120px auto 40px auto;
+    background: white;
+    padding: 30px 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* HEADER */
+.register-container h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #003366;
+}
+
+/* LABELS */
+.register-container label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* INPUT FIELDS */
+.register-container input,
+.register-container select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    margin-bottom: 18px;
+    box-sizing: border-box;
+}
+
+/* BUTTON */
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    background: #0066cc;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.register-btn:hover {
+    background: #0055aa;
+}
+
+/* LINK STYLING */
+.register-container a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
+
+.register-error-message {
+    color: #d9534f;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* FOOTER LINKS */
+.form-footer {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#toast-container {
+    position: fixed;
+    bottom: 20px;   /* ⬅️ move to bottom */
+    right: 20px;    /* stays right */
+    z-index: 9999;
+}
+
+.toast-message {
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 16px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    color: white;
+    opacity: 1;
+    transition: opacity 0.5s ease-out, transform 0.3s ease-out;
+    transform: translateY(0);
+}
+
+.toast-hide {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.toast-message.success {
+    background-color: #28a745;
+}
+
+.toast-message.error {
+    background-color: #dc3545;
+}
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+    .register-container {
+        margin: 60px 15px;
+        padding: 25px;
+    }
+}
+
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+    <link rel="stylesheet" href="{% static 'css/library_pages.css' %}">
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <div class="page-top">
+        <h2>Book Details</h2>
+        <div class="form-actions">
+            {% if user.is_authenticated and user.role == 1 %}
+                <a class="primary-btn" href="{% url 'book:edit_book' book.id %}">Edit book</a>
+            {% endif %}
+            <a class="secondary-btn" href="{% url 'book:book_list' %}">Back to all books</a>
+        </div> 
+    </div>
+
+    <div class="info-card">
+        <p><strong>ID:</strong> {{ book.id }}</p>
+        <p><strong>Name:</strong> {{ book.name }}</p>
+        <p><strong>Description:</strong> {{ book.description|default:"-" }}</p>
+        <p><strong>Count:</strong> {{ book.count }}</p>
+        <p>
+            <strong>Authors:</strong>
+            {% for author in book.authors.all %}
+                {{ author.name }} {{ author.surname }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+                -
+            {% endfor %}
+        </p>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+
+</body>
+</html>

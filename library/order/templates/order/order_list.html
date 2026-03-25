@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+    <link rel="stylesheet" href="{% static 'css/library_pages.css' %}">
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <div class="page-top">
+        {% if user.role == 1 %}
+            <h2>All Orders</h2>
+        {% else %}
+            <h2>My Orders</h2>
+        {% endif %}
+
+        {% if user.is_authenticated and user.role == 0 %}
+            <a class="primary-btn" href="{% url 'order:create_order' %}">Create order</a>
+        {% endif %}
+    </div>
+
+    {% if orders %}
+    <table class="users-table" cellpadding="6" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Book</th>
+                <th>User</th>
+                <th>Created at</th>
+                <th>Planned end at</th>
+                <th>Returned at</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.book.name }}</td>
+                <td>{{ order.user.email }}</td>
+                <td>{{ order.created_at }}</td>
+                <td>{{ order.plated_end_at|default:"-" }}</td>
+                <td>{% if order.end_at %}{{ order.end_at }}{% else %}-{% endif %}</td>
+                <td>
+                    {% if order.end_at %}
+                        <span class="status-badge status-closed">Closed</span>
+                    {% else %}
+                        <span class="status-badge status-active">Active</span>
+                    {% endif %}
+                </td>
+                <td class="table-actions">
+                    {% if not order.end_at %}
+                        {% if user.is_authenticated %}
+                            {% if order.user == user or user.role == 1 %}
+                                <a class="status-btn status-edit" href="{% url 'order:edit_order' order.id %}">Edit</a>
+                            {% endif %}
+                        {% endif %}
+                        <a class="status-btn status-close" href="{% url 'order:close_order' order.id %}" style="margin-left:6px;">Close</a>
+                    {% else %}
+                        <span class="status-text">Closed</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="empty-state">No orders found.</div>
+    {% endif %}
+</div>
+
+{% include "partials/footer.html" %}
+
+</body>
+</html>

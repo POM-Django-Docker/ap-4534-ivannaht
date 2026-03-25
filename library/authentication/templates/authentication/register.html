@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <h1>Register</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="error-text">
+                {% for error in form.non_field_errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.first_name.id_for_label }}">First name:</label>
+        {{ form.first_name }}
+        {% if form.first_name.errors %}
+            <div class="error-text">
+                {% for error in form.first_name.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.middle_name.id_for_label }}">Middle name:</label>
+        {{ form.middle_name }}
+        {% if form.middle_name.errors %}
+            <div class="error-text">
+                {% for error in form.middle_name.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.last_name.id_for_label }}">Last name:</label>
+        {{ form.last_name }}
+        {% if form.last_name.errors %}
+            <div class="error-text">
+                {% for error in form.last_name.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.email.id_for_label }}">Email:</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+            <div class="error-text">
+                {% for error in form.email.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.password1.id_for_label }}">Password:</label>
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+            <div class="error-text">
+                {% for error in form.password1.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.password2.id_for_label }}">Repeat password:</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+            <div class="error-text">
+                {% for error in form.password2.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.role.id_for_label }}">Role:</label>
+        {{ form.role }}
+        {% if form.role.errors %}
+            <div class="error-text">
+                {% for error in form.role.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <button type="submit" class="register-btn">Register</button>
+    </form>
+
+
+    <p class="form-footer">
+        Already have an account?
+        <a href="{% url 'authentication:login' %}">Log in</a>
+        <br><br>
+        <a href="{% url 'home' %}">Back to home page</a>
+    </p>
+
+</div>
+
+</body>
+</html>

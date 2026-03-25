@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+    <link rel="stylesheet" href="{% static 'css/library_pages.css' %}">
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <h2>Access Denied</h2>
+    <div class="error-box">
+        You do not have permission to view this page.
+    </div>
+    <a class="secondary-btn" href="{% url 'home' %}">Back to home</a>
+</div>
+
+{% include "partials/footer.html" %}
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;
+}
+
+.site-footer {
+    background-color: #d9dce1;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-stats h2 {
+    margin: 0 0 10px;
+}
+
+.footer-stats span {
+    margin: 0 10px;
+}
